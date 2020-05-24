@@ -1,15 +1,14 @@
 FROM registry.access.redhat.com/ubi8/nodejs-12
 
-CMD [ "npm", "start" ]
+RUN mkdir /usr/src/app
 
-RUN mkdir app
-
-WORKDIR app
+WORKDIR /usr/src/app
 
 ENV NODE_ENV=production
 
-COPY src/package*.json ./
+COPY /usr/src/package*.json ./
 
 RUN npm ci
 
-COPY src .
+COPY . .
+CMD ["npm", "start"]
